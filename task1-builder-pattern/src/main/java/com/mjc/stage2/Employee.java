@@ -61,6 +61,10 @@ public class Employee {
         this.carNumber = carNumber;
     }
 
+    public Employee(){
+
+    }
+
     private Employee (EmployeeBuilder employeeBuilder){
         this.name = employeeBuilder.name;
         this.lastName = employeeBuilder.lastName;
@@ -69,6 +73,7 @@ public class Employee {
         this.email = employeeBuilder.email;
         this.carNumber = employeeBuilder.carNumber;
     }
+
 
     public static EmployeeBuilder getBuilder() {
         return new EmployeeBuilder();
@@ -83,7 +88,6 @@ public class Employee {
         private String carNumber;
 
         public EmployeeBuilder() {
-
         }
 
         public EmployeeBuilder setName(String nameBuilder){
@@ -116,13 +120,13 @@ public class Employee {
             return this;
         }
 
-        private Employee buildEmployee(){
-            return new Employee(getBuilder());
+        private Employee build(){
+            return new Employee(this);
         }
     }
 
     public static void main(String[] args) {
-        Employee employee = new Employee(new EmployeeBuilder().setName("A"));
+        Employee employee = new EmployeeBuilder().setName("a").build();
         System.out.println(employee.getName());
     }
 }
