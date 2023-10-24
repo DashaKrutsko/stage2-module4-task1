@@ -22,10 +22,8 @@ public class H2ConnectionFactory implements ConnectionFactory {
         Connection connection = null;
         Properties properties = new Properties();
         try {
-            ClassLoader classLoader = Main.class.getClassLoader();
-            InputStream inputStream = classLoader.getResourceAsStream("h2database.properties");
+            InputStream inputStream = H2ConnectionFactory.class.getClassLoader().getResourceAsStream("h2database.properties");
             properties.load(inputStream);
-        //    properties.load(new FileInputStream("h2database.properties"));
             driver = properties.getProperty("jdbc_driver");
             url = properties.getProperty("db_url");
             password = properties.getProperty("password");
@@ -35,6 +33,11 @@ public class H2ConnectionFactory implements ConnectionFactory {
             e.printStackTrace();
         }
         return connection;
+    }
+
+    public static void main(String[] args) {
+        H2ConnectionFactory h2ConnectionFactory = new H2ConnectionFactory();
+        h2ConnectionFactory.createConnection();
     }
 }
 
