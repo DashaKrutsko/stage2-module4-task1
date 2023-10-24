@@ -1,9 +1,7 @@
 package com.mjc.stage2.impl;
 
-
 import com.mjc.stage2.ConnectionFactory;
-
-import javax.sql.DataSource;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,18 +19,14 @@ public class H2ConnectionFactory implements ConnectionFactory {
         Connection connection = null;
         Properties properties = new Properties();
         try {
-            properties.load(DataSource.class.getClassLoader().getResourceAsStream("app.properties"));
+            properties.load(new FileInputStream("h2database.properties"));
             driver = properties.getProperty("jdbc_driver");
             url = properties.getProperty("db_url");
             password = properties.getProperty("password");
             name = properties.getProperty("user");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
             connection = DriverManager.getConnection(url, name, password);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
         }
         return connection;
     }
