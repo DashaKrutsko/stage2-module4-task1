@@ -120,13 +120,9 @@ public class Employee {
             return this;
         }
 
-        private Employee build(){
+        public Employee build(){
             return new Employee(this);
         }
     }
 
-    public static void main(String[] args) {
-        Employee employee = new EmployeeBuilder().setName("a").build();
-        System.out.println(employee.getName());
-    }
 }
