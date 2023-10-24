@@ -70,6 +70,10 @@ public class Employee {
         this.carNumber = employeeBuilder.carNumber;
     }
 
+    public static EmployeeBuilder getBuilder() {
+        return new EmployeeBuilder();
+    }
+
     public static class EmployeeBuilder {
         private String name;
         private String lastName;
@@ -113,8 +117,12 @@ public class Employee {
         }
 
         private Employee buildEmployee(){
-            return new Employee(this);
+            return new Employee(getBuilder());
         }
     }
 
+    public static void main(String[] args) {
+        Employee employee = new Employee(new EmployeeBuilder().setName("A"));
+        System.out.println(employee.getName());
+    }
 }
